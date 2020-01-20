@@ -69,7 +69,7 @@ function renderGreenPeppers() {
 
 function renderWhiteSauce() {
   // Iteration 2: add/remove the class "sauce-white" of `<section class="sauce">`
-  document.querySelectorAll('.sauce-white').forEach(function($whiteSauce){
+  document.querySelectorAll('.sauce').forEach(function($whiteSauce){
     if (state.whiteSauce) {
       $whiteSauce.style.visibility = "visible";
     }
@@ -81,7 +81,7 @@ function renderWhiteSauce() {
 
 function renderGlutenFreeCrust() {
   // Iteration 2: add/remove the class "crust-gluten-free" of `<section class="crust">`
-  document.querySelectorAll('.crust-gluten-free').forEach(function($glutenFree){
+  document.querySelectorAll('.crust').forEach(function($glutenFree){
     if (state.glutenFreeCrust) {
       $glutenFree.style.visibility = "visible";
     }
@@ -93,19 +93,52 @@ function renderGlutenFreeCrust() {
 
 function renderButtons() {
   // Iteration 3: add/remove the class "active" of each `<button class="btn">`
-  let buttonOnOff = document.getElementsByClassName('btn');
-  buttonOnOff.classList.toggle('.active');
+  let element = document.querySelectorAll("button");
+  let count = 0;
+  let keyArr = Object.keys(state);
+  for(let i in state){
+    if(state[i]){
+      element[count].classList.add("active");
+      document.getElementById(`list-${keyArr[count]}`).style.display = "block";       
+    }
+    else{
+      element[count].classList.remove("active");
+      document.getElementById(`list-${keyArr[count]}`).style.display = "none";
+    }
+    count++;
+  }
 }
 
-//   document.querySelectorAll('.active').forEach(function($buttonOnOff) {
-//     if($buttonOnOff.classList.)
-//   })
-// }
+
 
 function renderPrice() {
   // Iteration 4: change the HTML of `<aside class="panel price">`
 
+  let total = 10;
+  let count = 0;
+  for(let i in state){
+    if(state[i]){
+      switch(i){
+        case "pepperonni":
+        case "mushrooms":
+        case "greenPeppers":
+          total += 1;
+          break;
+        case "whiteSauce":
+          total += 3;
+          break;
+        case "glutenFreeCrust":
+          total += 5;
+          break;
+      }
+    }   
+    count++;
+  }
+  price.innerHTML = total;
 }
+
+
+
 
 
 
