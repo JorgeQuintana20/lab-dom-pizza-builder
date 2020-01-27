@@ -69,74 +69,66 @@ function renderGreenPeppers() {
 
 function renderWhiteSauce() {
   // Iteration 2: add/remove the class "sauce-white" of `<section class="sauce">`
-  document.querySelectorAll('.sauce').forEach(function($whiteSauce){
+  let sauce = document.querySelector('.sauce')
     if (state.whiteSauce) {
-      $whiteSauce.style.visibility = "visible";
+      sauce.classList.add('sauce-white')
     }
     else {
-      $whiteSauce.style.visibility = "hidden";
+      sauce.classList.remove('sauce-white')
     }
-  })
 }
 
 function renderGlutenFreeCrust() {
   // Iteration 2: add/remove the class "crust-gluten-free" of `<section class="crust">`
-  document.querySelectorAll('.crust').forEach(function($glutenFree){
+  let crust = document.querySelector('.crust')
     if (state.glutenFreeCrust) {
-      $glutenFree.style.visibility = "visible";
+      crust.classList.add('crust-gluten-free')
     }
     else {
-      $glutenFree.style.visibility = "hidden";
+      crust.classList.remove('crust-gluten-free')
     }
-  })
+  
 }
 
 function renderButtons() {
   // Iteration 3: add/remove the class "active" of each `<button class="btn">`
-  let element = document.querySelectorAll("button");
-  let count = 0;
-  let keyArr = Object.keys(state);
-  for(let i in state){
-    if(state[i]){
-      element[count].classList.add("active");
-      document.getElementById(`list-${keyArr[count]}`).style.display = "block";       
+  let buttonOnOff = document.getElementsByClassName('btn');
+  let keys = Object.keys(state);
+  for(let i = 0; i < buttonOnOff.length; i++){
+
+    if(state[keys[i]]){
+      buttonOnOff[i].classList.add("active"); 
     }
     else{
-      element[count].classList.remove("active");
-      document.getElementById(`list-${keyArr[count]}`).style.display = "none";
+      buttonOnOff[i].classList.remove("active"); 
     }
-    count++;
   }
+
 }
-
-
 
 function renderPrice() {
   // Iteration 4: change the HTML of `<aside class="panel price">`
+  let totalPrice = 10;
 
-  let total = 10;
-  let count = 0;
-  for(let i in state){
-    if(state[i]){
-      switch(i){
-        case "pepperonni":
-        case "mushrooms":
-        case "greenPeppers":
-          total += 1;
-          break;
-        case "whiteSauce":
-          total += 3;
-          break;
-        case "glutenFreeCrust":
-          total += 5;
-          break;
-      }
-    }   
-    count++;
-  }
-  price.innerHTML = total;
+  if ($('.btn-pepperonni').hasClass('active')) {
+    totalPrice += 1;
+  
 }
+  if ($('.btn-mushrooms').hasClass('active')) {
+    totalPrice += 1;
+  }
+  if ($('.btn-green-peppers').hasClass('active')) {
+    totalPrice += 1;
+  }
+  if ($('.btn-sauce').hasClass('active')) {
+    totalPrice += 3;
+  }
+  if ($('.btn-crust').hasClass('active')) {
+    totalPrice += 5;
+  }
 
+  $('#totalPrice').html(totalPrice);
+}
 
 
 
